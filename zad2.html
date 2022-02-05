@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    <meta charset="UTF-8">
+<head>
+    <style>
+        .half {
+            -moz-transform:scale(0.5);
+            -webkit-transform:scale(0.5);
+            transform:scale(0.5);
+        }
+        </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+
+    
+    $(document).ready(function () {
+        //funkcja ladujaca obraz 
+        function readImg(input) {
+            //jezeli input zostal znaleziony rto ladujemy obraz i go urkywamy 
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewHolder').attr('src', e.target.result);
+                    $('#previewHolder').hide();
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else { //jezlei nie to wyswietlamy alert
+                    alert('najpierw wybierz obraz');
+                    $('#previewHolder').attr('src', '');
+                }
+            }
+
+
+            // ustawiamy obrazek
+            $("#filePhoto").change(function() {
+                readImg(this);
+            });
+            //po nacisnieciu przycisku wyswietlamy obraz
+            $("#showButton").click(function() {
+                $("#previewHolder").show()
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+    <input type="file" name="filePhoto" id="filePhoto">
+    <button id="showButton">Pokaż obrazek</button>
+    <br/><br/>
+    <img id="previewHolder" class="half"/>
+
+</body>
+</html>
